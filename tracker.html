@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en-US" class="no-js" >
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name='robots' content='noindex,nofollow' />
+	<title>Going Digital</title>
+
+	<!-- Style -->
+	<link media="all" href="css/style.css" rel="stylesheet" />
+
+	<!-- Fonts -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+	<!-- Scripts --> 
+	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js' id='jquery-core-js'></script>
+
+	<!-- JQUERY CDN -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Bootstrap CSS CDN -->
+	
+	<!-- Datatable JS CDN -->
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+	<!-- JS CDN-->
+	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+
+</head>
+
+<body>
+
+	 <header class="dark-bg">
+	  <div class="top clearfix">
+	    <div class="header-top ptb-20">
+	      <div class="container">
+	        <div class="row"> 
+
+	          <!-- Logo -->
+	          
+	          <div class="col-sm-4">
+            	<div class="logo"> <a href="tracker.html"><img src="images/bitcoin2.png"><h3>GOING DIGITAL</h3></a>  
+            		
+                </div>
+          	  </div>
+	          
+	          <!-- Menu-Nav -->
+	          <div class="col-xs-12 col-sm-8">
+	            <div class="right">
+	            <div class="expand-menu-open floatright"> <i class="zmdi zmdi-menu"></i></div>
+	              <nav class="mainmenu floatright">
+	                <ul id="menu-main-menu" class="clearfix">
+	                  <li><a href="index.html">MAIN</a></li>
+	                  <li><a href="blockchain.html">BLOCKCHAIN</a></li>
+	                  <li><a href="code it.html">CODE IT</a></li>
+	                  <li class="active"><a href="tracker.html">TRACKER</a></li> 
+	                  <li><a href="invest.html">INVEST</a></li>      
+	                  <li><a href="about us.html">ABOUT US</a></li>               
+	                </ul>
+	              </nav>
+	            </div>
+	            </div>
+	          </div> 
+
+	        </div>
+	      </div>
+	    </div>
+	   </div>
+         
+          
+	</header>   
+
+	<div class="page-content ptb-50" >
+		<section class="fw-main-row">
+			<div class="fw-row" >
+				<div class="fw-col-lg-12">
+					<div class="container">
+						<div class="row relative">
+							<div class="slider-text percent-100 light-bg">
+							                <div class="card card-heading light-bg"><h3>CRYPTOCURRENCY TRACKER</h3><br></div>			
+						
+								<div class="col-lg-12">
+									<table class="table-hover table-condensed table-bordered" id="tableCrypto">
+										<thead class="right">
+									
+											<th><h5><br>CRYPTOCURRENCY SYMBOL<br></h5></th>
+											<th><h5><br>CRYPTOCURRENCY NAME<br></h5></th>
+											<th><h5><br>PRICE<br></h5></th>										
+											<th><h5><br>CHANGE 24 HOURS<br></h5></th>
+																	
+										</thead>
+									
+										<tbody class="bodyfont dark-bg ">
+									
+										</tbody>
+								
+									</table>
+
+								</div>
+
+								<div class="col-lg-12">
+									<input type="button" id="refresh" value="Refresh" class="form-control btn btn-primary">
+									
+								</div>
+								<div class='col-lg-12'>
+									<hr>
+										<h4>PRICES</h4>
+											<b><span>1 BTC = </span></b><span id="btcPrice" class="blue-font"></span>
+                    						<b><span>1 ETH = </span></b><span id="ethPrice" class="blue-font"></span>
+                    						<b><span>1 LTC = </span></b><span id="ltcPrice" class="blue-font"></span>
+                    						<b><span>1 MIOTA = </span></b><span id="miotaPrice" class="blue-font"></span>
+                    						<b><span>1 XRP = </span></b><span id="xrpPrice" class="blue-font"></span>
+                    						<b><span>1 DOGE = </span></b><span id="dogePrice" class="blue-font"></span>
+                   							<b><span>1 ADA = </span></b><span id="cardanoPrice" class="blue-font"></span>
+                    						<b><span>1 BCH = </span></b><span id="bitcoin cashPrice" class="blue-font"></span>
+                    						<b><span>1 TRX = </span></b><span id="tronPrice" class="blue-font"></span>
+                    						<b><span>1 EOS = </span></b><span id="eosPrice" class="blue-font"></span>
+
+                    						<br><br><br><br><br><br>
+								<p>source: <br>
+								https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,LTC,XRP,MIOTA,DOGE,BNB,ADA,BCH,TRX,EOS&tsyms=USD&api_key=f679c0c70cac07a0a06add6df125f7fd5589a20eb1e5c4e0bfc6862f56414e6e</p>
+								</div>
+								
+						</div>
+						</div>
+
+					</div>              
+	            	</div>
+	          	</div>
+	        
+	      </div>
+	    </div>
+	  </section>
+
+	</div>  
+
+	<style>
+	.price{
+		
+		width: : 150px !important;
+	}
+	</style> 	
+
+	<footer class="footer mb-20 dark-bg">	
+		<div class="left floatleft copyright">
+	          <p>&copy; 2021 Going Digital, CPS 4951</p>
+	    </div>     
+	</footer>
+    
+<script type='text/javascript' id='mim-theme-main-js-js-extra'>var mim = {"theme_uri":"http:\/\/wp.regaltheme.com\/mim\/wp-content\/themes\/mim","ajaxurl":"http:\/\/wp.regaltheme.com\/mim\/wp-admin\/admin-ajax.php","check_rtl":""};</script>
+<script defer src="js/automize.js"></script> 
+    
+</body>
+</html>
+
+<script>
+	var table,i;
+
+	$(document).ready(function() {
+		crypto() //Calling the Crypto function since the page has finished loading when entering it
+	})
+
+	$("#refresh").on('click', function() { // Calling the Crypto function and resetting the counter by clicking the "Refresh" button
+		i = 10;
+		crypto()
+	})
+
+	$("#tableCrypto").ready(function() { 
+		table = $("#tableCrypto").removeAttr('width').DataTable({ //Initializing the table that will contain the information, using the Javascript DataTables framework
+			"deferRender": true, //Indicating that this table could be created Rows dynamically 
+			destroy: true, //Indicating that the entire table will be destroyed first and then it will be regenerated and reinitialized
+			dom: 'RSltpri', //Indicating which DOM options will be used when generating the table with DataTables
+			"columns": [{  //Defining the columns and the identifiers that you will receive to fill with the request through AJAX
+					"data": "symbol"
+				},
+				{
+					"data": "name"
+				},
+				{
+					"data": "price",
+					className:"price"
+				},
+				{
+					"data": "change"
+				}
+			]
+		});
+	})
+
+	function crypto() { //Crypto function that is responsible for making the AJAX request to the PHP server that requests the information of the cryptocurrencies
+		var parametros = {
+			'crypto': 1
+		}
+		$.ajax({
+			type: 'post',
+			url: 'ajax/crypto.php',
+			data: parametros
+		}).done(function(data) {
+			var result = JSON.parse(data);
+			console.log(result.data)
+			table.clear(); //clean the table
+			table.rows.add(result.data).draw(); //Shows the data received from the PHP server
+			$("#btcPrice").text(result.data[0].price)
+            $("#ethPrice").text(result.data[1].price)
+            $("#ltcPrice").text(result.data[2].price)
+            $("#miotaPrice").text(result.data[4].price)
+            $("#xrpPrice").text(result.data[3].price)
+            $("#dogePrice").text(result.data[3].price)
+            $("#cardanoPrice").text(result.data[3].price)
+            $("#bitcoin cashPrice").text(result.data[3].price)
+            $("#tronPrice").text(result.data[3].price)
+            $("#eosPrice").text(result.data[3].price)
+		})
+	}
+	i = 10; //Starts a counter from 10
+	setInterval(function() { //Create an interval of every 1 second that will reduce the counter until it reaches 0 and then call the Crypto function and reset the counter at 10
+		i--;
+
+		$("#count").text("Next Update in " + i + " Seconds");
+		if (i == 0) {
+			crypto();
+			i = 10;
+		}
+	}, 1000);
+
+</script>

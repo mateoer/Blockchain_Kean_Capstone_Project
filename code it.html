@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en-US" class="no-js" >
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name='robots' content='noindex,nofollow' />
+
+	<title>Going Digital</title>
+
+	<!-- Style -->
+	<link media="all" href="css/style.css" rel="stylesheet" />
+
+	<!-- Fonts -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+	<!-- Scripts --> 
+	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js' id='jquery-core-js'></script>
+
+</head>
+
+<body>
+
+	 <header class="dark-bg">
+	  <div class="top clearfix">
+	    <div class="header-top ptb-20">
+	      <div class="container">
+	        <div class="row"> 
+
+	          <!-- Logo -->
+	          
+	          <div class="col-sm-4">
+            	<div class="logo"> <a href="index.html"><img src="images/bitcoin2.png"><h3>GOING DIGITAL</h3> </a>  
+            		
+                </div>
+          	  </div>
+	          
+	          <!-- Menu-Nav -->
+	          <div class="col-xs-12 col-sm-8">
+	            <div class="right">
+	            <div class="expand-menu-open floatright"> <i class="zmdi zmdi-menu"></i></div>
+	              <nav class="mainmenu floatright">
+	                <ul id="menu-main-menu" class="clearfix">
+	                  <li><a href="index.html">MAIN</a></li>
+	                  <li><a href="blockchain.html">BLOCKCHAIN</a></li>
+                      <li class="active"><a href="code it.html">CODE IT</a></li>                 
+	                  <li><a href="tracker.html">TRACKER</a></li>
+                      <li><a href="invest.html">INVEST</a></li>  
+	                  <li><a href="about us.html">ABOUT US</a></li>                         
+	                </ul>
+	              </nav>
+	            </div>
+	            </div>
+	          </div> 
+
+	        </div>
+	      </div>
+	    </div>
+	   </div>
+	</header>   
+	<div class="page-content ptb-50" >
+		
+	  <section class="fw-main-row">
+	    <div class="fw-row" >
+	      <div class="fw-col-lg-12">
+	        
+	          	<div class="container">
+	            	<div class="row relative">       
+			
+					<div class="slider-text percent-100">
+	                   
+
+
+						 <!-- Tab links -->
+						<div class="tab">
+  							<button class="tablinks" onclick="openCity(event, 'Java')">Java</button>
+  							<button class="tablinks" onclick="openCity(event, 'Javascript')">Javascript</button>
+  							<button class="tablinks" onclick="openCity(event, 'C++')">C++</button>
+  							<button class="tablinks" onclick="openCity(event, 'Python')">Python</button>
+						</div>
+
+						<!-- Tab content -->
+						<div id="Java" class="tabcontent">
+  							<h3>Java</h3>
+<pre><code class="language-java">
+ public class Block {
+    private String hash;
+    private String previousHash;
+    private String data;
+    private long timeStamp;
+    private int nonce; 
+    public Block(String data, String previousHash, long timeStamp) {
+        this.data = data;
+        this.previousHash = previousHash;
+        this.timeStamp = timeStamp;
+        this.hash = calculateBlockHash();
+    }
+    // standard getters and setters
+}</code></pre>
+
+<p></p>
+<pre><code class="language-java">public String calculateBlockHash() {
+    String dataToHash = previousHash 
+      + Long.toString(timeStamp) 
+      + Integer.toString(nonce) 
+      + data;
+    MessageDigest digest = null;
+    byte[] bytes = null;
+    try {
+        digest = MessageDigest.getInstance("SHA-256");
+        bytes = digest.digest(dataToHash.getBytes(UTF_8));
+    } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+        logger.log(Level.SEVERE, ex.getMessage());
+    }
+    StringBuffer buffer = new StringBuffer();
+    for (byte b : bytes) {
+        buffer.append(String.format("%02x", b));
+    }
+    return buffer.toString();
+}</code></pre>
+<p></p>
+<pre><code class="language-java">public String mineBlock(int prefix) {
+    String prefixString = new String(new char[prefix]).replace('\0', '0');
+    while (!hash.substring(0, prefix).equals(prefixString)) {
+        nonce++;
+        hash = calculateBlockHash();
+    }
+    return hash;
+}</code></pre>
+<p></p>
+<pre><code class="language-java">List<Block> blockchain = new ArrayList<>();
+int prefix = 4;
+String prefixString = new String(new char[prefix]).replace('\0', '0');</code></pre>
+<p></p>
+<pre><code class="language-java">@Test
+public void givenBlockchain_whenNewBlockAdded_thenSuccess() {
+    Block newBlock = new Block(
+      "The is a New Block.", 
+      blockchain.get(blockchain.size() - 1).getHash(),
+      new Date().getTime());
+    newBlock.mineBlock(prefix);
+    assertTrue(newBlock.getHash().substring(0, prefix).equals(prefixString));
+    blockchain.add(newBlock);
+}</code></pre>
+<p></p>
+<pre><code class="language-java">@Test
+public void givenBlockchain_whenValidated_thenSuccess() {
+    boolean flag = true;
+    for (int i = 0; i < blockchain.size(); i++) {
+        String previousHash = i==0 ? "0" : blockchain.get(i - 1).getHash();
+        flag = blockchain.get(i).getHash().equals(blockchain.get(i).calculateBlockHash())
+          && previousHash.equals(blockchain.get(i).getPreviousHash())
+          && blockchain.get(i).getHash().substring(0, prefix).equals(prefixString);
+            if (!flag) break;
+    }
+    assertTrue(flag);
+}</code></pre>
+<p>[NEEDS REVISION]</p>
+<p>source: <br>
+         Kumar Chandrakant. 2020. Implementing a Simple Blockchain in Java. (August 13, 2020). Retrieved April 5, 2021 from<br>
+         https://www.baeldung.com/java-blockchain </p>
+<br><br><br><br><br><br>
+  							
+						</div>
+
+						<div id="Javascript" class="tabcontent">
+  							<h3>Javascript</h3>
+<p>mkdir cryptochain</p>
+<p>cd cryptochain</p>
+<p>npm init -y</p>
+
+<pre><code class="language-javascript">// genesis.js
+
+const GENESIS_DATA = {
+    timestamp: Date.now(),
+    lastHash: '64b7edc786326651e031a4d12d9838d279571946d8c9a5d448c70db94b0e143f',
+    hash: 'c671c84681b9d682b9fd43b2a2ef01a343eab7cfa410df9835f8165007d38467',
+    data: 'krunal'
+};
+
+module.exports = { GENESIS_DATA };</code></pre>
+<p></p>
+<pre><code class="language-javascript">// block.js
+
+const { GENESIS_DATA } = require('./genesis.js');
+
+class Block {
+    constructor({timestamp, lastHash, hash, data}) {
+        this.timestamp = timestamp;
+        this.lastHash = lastHash;
+        this.hash = hash;
+        this.data = data;
+    }
+
+    static genesis() {
+        return new this(GENESIS_DATA);
+    }
+}
+
+module.exports = Block;</code></pre>
+<p></p>
+<pre><code class="language-javascript">// crypto-hash.js
+
+const crypto = require('crypto');
+
+const cryptoHash =(...inputs) => {
+    const hash = crypto.createHash('sha256');
+    hash.update(inputs.sort().join(' '));
+    return hash.digest('hex');
+}
+
+module.exports = cryptoHash;</code></pre>
+<p></p>
+<pre><code class="language-javascript">// block.js
+
+const { GENESIS_DATA } = require('./genesis.js');
+const cryptoHash = require('./crypto-hash');
+
+class Block {
+    constructor({timestamp, lastHash, hash, data}) {
+        this.timestamp = timestamp;
+        this.lastHash = lastHash;
+        this.hash = hash;
+        this.data = data;
+    }
+
+    static genesis() {
+        return new this(GENESIS_DATA);
+    }
+
+    static mineBlock({lastBlock, data}) {
+        const timestamp = Date.now();
+        const lastHash = lastBlock.hash;
+        return new this({
+            timestamp,
+            lastHash,
+            data,
+            hash: cryptoHash(timestamp, lastHash, data)
+        });
+    }
+}
+module.exports = Block;</code></pre>
+<p></p>
+<pre><code class="language-javascript">// blockchain.js
+
+const Block = require('./block');
+
+class Blockchain {
+
+    constructor() {
+        this.chain = [Block.genesis()];
+    }
+
+    addBlock({ data }) {
+        const newBlock = Block.mineBlock({
+            lastBlock: this.chain[this.chain.length-1],
+            data
+        });
+
+        this.chain.push(newBlock);
+    }
+}
+
+module.exports = Blockchain;</code></pre>
+<p></p>
+<pre><code class="language-javascript">// server.js
+
+const Blockchain = require('./blockchain');
+const Block = require('./block');
+
+const blockchain = new Blockchain();
+
+for(let i=0; i<5; i++) {
+    const newData = 'krunal'+i;
+    blockchain.addBlock({data: newData});
+}
+
+console.log(blockchain);
+</code></pre>
+<p></p>
+<p>node server</p>
+<p>[NEEDS REVISION]</p>
+<p>source: <br>
+        Krunal. 2018. How To Create Blockchain In JavaScript. (December 14, 2018). Retrieved April 6, 2021 from<br>
+        https://appdividend.com/2018/12/15/how-to-create-blockchain-in-javascript/ </p>
+<br><br><br><br><br><br>
+						</div>
+
+						<div id="C++" class="tabcontent">
+  							<h3>C++</h3>  							
+<p></p>  							
+<pre><code class="language-c++">#include <cstdint></code></pre>
+<p></p>  							
+<pre><code class="language-c++">#include <iostream></code></pre>
+<p></p>  							
+<pre><code class="language-c++">class Block {
+
+public:
+
+string sPrevHash;
+
+Block(uint32_t nIndexIn, const string &sDataIn);
+
+string GetHash();
+
+void MineBlock(uint32_t nDifficulty);
+
+private:
+
+uint32_t _nIndex;
+
+int64_t _nNonce;
+
+string _sData;
+
+string _sHash;
+
+time_t _tTime;
+
+string _CalculateHash() const;
+
+};</code></pre>
+<p></p>  							
+<pre><code class="language-c++">#include <cstdint>
+
+#include <vector>
+
+#include “Block.h”
+
+using namespace std;</code></pre>
+<p></p>  							
+<pre><code class="language-c++">class Blockchain {
+
+public:
+
+Blockchain();
+
+void AddBlock(Block bNew);
+
+private:
+
+uint32_t _nDifficulty;
+
+vector<Block> _vChain;
+
+Block _GetLastBlock() const;
+
+};</code></pre>
+<p></p>  							
+<pre><code class="language-c++">#include “Block.h”
+
+#include “sha256.h”</code></pre>
+<p></p>  							
+<pre><code class="language-c++">Block::Block(uint32_t nIndexIn, const string &sDataIn) : _nIndex(nIndexIn), _sData(sDataIn) {
+
+_nNonce = -1;
+
+_tTime = time(nullptr);
+
+}</code></pre>
+<p></p>  							
+<pre><code class="language-c++">string Block::GetHash() {
+return _sHash;
+}</code></pre>
+<p></p>  							
+<pre><code class="language-c++">void Block::MineBlock(uint32_t nDifficulty) {
+char cstr[nDifficulty + 1];
+for (uint32_t i = 0; i < nDifficulty; ++i) {
+cstr[i] = ‘0’;
+}
+cstr[nDifficulty] = ‘\0’;
+
+string str(cstr);
+
+do {
+_nNonce++;
+_sHash = _CalculateHash();
+} while (_sHash.substr(0, nDifficulty) != str);
+
+cout << “Block mined: “ << _sHash << endl;
+}</code></pre>
+<p></p>  							
+<pre><code class="language-c++">inline string Block::_CalculateHash() const {
+stringstream ss;
+ss << _nIndex << _tTime << _sData << _nNonce << sPrevHash;
+
+return sha256(ss.str());
+}</code></pre>
+<p></p>  							
+<pre><code class="language-c++">#include “Blockchain.h”
+
+Follow these with the implementation of our blockchain constructor:
+
+Blockchain::Blockchain() {
+
+_vChain.emplace_back(Block(0, “Genesis Block”));
+
+_nDifficulty = 6;
+
+}</code></pre>
+<p></p>  							
+<pre><code class="language-c++">void Blockchain::AddBlock(Block bNew) {
+bNew.sPrevHash = _GetLastBlock().GetHash();
+bNew.MineBlock(_nDifficulty);
+_vChain.push_back(bNew);
+}</code></pre>
+<p></p>  							
+<pre><code class="language-c++">Block Blockchain::_GetLastBlock() const {
+return _vChain.back();
+}</code></pre>
+<p></p>  							
+<pre><code class="language-c++">#include “Blockchain.h”</code></pre>
+<p></p>  							
+<pre><code class="language-c++">int main() {
+Blockchain bChain = Blockchain();
+
+cout << “Mining block 1…” << endl;
+bChain.AddBlock(Block(1, “Block 1 Data”));
+
+cout << “Mining block 2…” << endl;
+bChain.AddBlock(Block(2, “Block 2 Data”));
+
+cout << “Mining block 3…” << endl;
+bChain.AddBlock(Block(3, “Block 3 Data”));
+
+return 0;
+}</code></pre>
+<p></p>  							
+<pre><code class="language-c++">gcc -lstdc++ \
+-o TestChain \
+-std=c++11 \
+-stdlib=libc++ \
+-x c++ \
+main.cpp Block.cpp Blockchain.cpp sha256.cpp
+./TestChain</code></pre>
+<p>[NEEDS REVISION]</p>
+<p>source: <br>
+        Jonathan Vargas. 2018. Build a Blockchain with C++. (December 3, 2018). Retrieved April 8, 2021 from<br>
+        https://medium.com/@vargasjonathan9517/build-a-blockchain-with-c-e164d8319557</p>
+<br><br><br><br><br><br>
+						</div> 
+
+						<div id="Python" class="tabcontent">
+  							<h3>Python</h3>  
+<p></p>  							
+<pre><code class="language-python">class Blockchain(object):
+    def __init__(self):
+        self.chain = []
+        self.current_transactions = []
+        
+    def new_block(self):
+        # Creates a new Block and adds it to the chain
+        pass
+    
+    def new_transaction(self):
+        # Adds a new transaction to the list of transactions
+        pass
+    
+    @staticmethod
+    def hash(block):
+        # Hashes a Block
+        pass
+
+    @property
+    def last_block(self):
+        # Returns the last Block in the chain
+        pass</code></pre>
+<p></p>  							
+<pre><code class="language-python">block = {
+    'index': 1,
+    'timestamp': 1506057125.900785,
+    'transactions': [
+        {
+            'sender': "8527147fe1f5426f9dd545de4b27ee00",
+            'recipient': "a77f5cdfa2934df3954a5c7c7da5df1f",
+            'amount': 5,
+        }
+    ],
+    'proof': 324984774000,
+    'previous_hash': "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+}</code></pre>
+<p></p>  							
+<pre><code class="language-python">class Blockchain(object):
+    ...
+    
+    def new_transaction(self, sender, recipient, amount):
+        """
+        Creates a new transaction to go into the next mined Block
+        :param sender: <str> Address of the Sender
+        :param recipient: <str> Address of the Recipient
+        :param amount: <int> Amount
+        :return: <int> The index of the Block that will hold this transaction
+        """
+
+        self.current_transactions.append({
+            'sender': sender,
+            'recipient': recipient,
+            'amount': amount,
+        })
+
+        return self.last_block['index'] + 1</code></pre>
+<p></p>  							
+<pre><code class="language-python">import hashlib
+import json
+from time import time
+
+
+class Blockchain(object):
+    def __init__(self):
+        self.current_transactions = []
+        self.chain = []
+
+        # Create the genesis block
+        self.new_block(previous_hash=1, proof=100)
+
+    def new_block(self, proof, previous_hash=None):
+        """
+        Create a new Block in the Blockchain
+        :param proof: <int> The proof given by the Proof of Work algorithm
+        :param previous_hash: (Optional) <str> Hash of previous Block
+        :return: <dict> New Block
+        """
+
+        block = {
+            'index': len(self.chain) + 1,
+            'timestamp': time(),
+            'transactions': self.current_transactions,
+            'proof': proof,
+            'previous_hash': previous_hash or self.hash(self.chain[-1]),
+        }
+
+        # Reset the current list of transactions
+        self.current_transactions = []
+
+        self.chain.append(block)
+        return block
+
+    def new_transaction(self, sender, recipient, amount):
+        """
+        Creates a new transaction to go into the next mined Block
+        :param sender: <str> Address of the Sender
+        :param recipient: <str> Address of the Recipient
+        :param amount: <int> Amount
+        :return: <int> The index of the Block that will hold this transaction
+        """
+        self.current_transactions.append({
+            'sender': sender,
+            'recipient': recipient,
+            'amount': amount,
+        })
+
+        return self.last_block['index'] + 1
+
+    @property
+    def last_block(self):
+        return self.chain[-1]
+
+    @staticmethod
+    def hash(block):
+        """
+        Creates a SHA-256 hash of a Block
+        :param block: <dict> Block
+        :return: <str>
+        """
+
+        # We must make sure that the Dictionary is Ordered, or we'll have inconsistent hashes
+        block_string = json.dumps(block, sort_keys=True).encode()
+        return hashlib.sha256(block_string).hexdigest()</code></pre>
+<p></p>  							
+<pre><code class="language-python">from hashlib import sha256
+x = 5
+y = 0  # We don't know what y should be yet...
+while sha256(f'{x*y}'.encode()).hexdigest()[-1] != "0":
+    y += 1
+print(f'The solution is y = {y}')</code></pre>
+<p></p>  							
+<pre><code class="language-python">hash(5 * 21) = 1253e9373e...5e3600155e860</code></pre>
+<p></p>  							
+<pre><code class="language-python">import hashlib
+import json
+
+from time import time
+from uuid import uuid4
+
+
+class Blockchain(object):
+    ...
+        
+    def proof_of_work(self, last_proof):
+        """
+        Simple Proof of Work Algorithm:
+         - Find a number p' such that hash(pp') contains leading 4 zeroes, where p is the previous p'
+         - p is the previous proof, and p' is the new proof
+        :param last_proof: <int>
+        :return: <int>
+        """
+
+        proof = 0
+        while self.valid_proof(last_proof, proof) is False:
+            proof += 1
+
+        return proof
+
+    @staticmethod
+    def valid_proof(last_proof, proof):
+        """
+        Validates the Proof: Does hash(last_proof, proof) contain 4 leading zeroes?
+        :param last_proof: <int> Previous Proof
+        :param proof: <int> Current Proof
+        :return: <bool> True if correct, False if not.
+        """
+
+        guess = f'{last_proof}{proof}'.encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+        return guess_hash[:4] == "0000"</code></pre>
+<p></p>  							
+<pre><code class="language-python">import hashlib
+import json
+from textwrap import dedent
+from time import time
+from uuid import uuid4
+
+from flask import Flask
+
+
+class Blockchain(object):
+    ...
+
+
+# Instantiate our Node
+app = Flask(__name__)
+
+# Generate a globally unique address for this node
+node_identifier = str(uuid4()).replace('-', '')
+
+# Instantiate the Blockchain
+blockchain = Blockchain()
+
+
+@app.route('/mine', methods=['GET'])
+def mine():
+    return "We'll mine a new Block"
+  
+@app.route('/transactions/new', methods=['POST'])
+def new_transaction():
+    return "We'll add a new transaction"
+
+@app.route('/chain', methods=['GET'])
+def full_chain():
+    response = {
+        'chain': blockchain.chain,
+        'length': len(blockchain.chain),
+    }
+    return jsonify(response), 200
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)</code></pre>
+
+<p>[NEEDS REVISION]</p>
+<p>source: <br>
+        Daniel van Flymen. 2017. Learn Blockchains by Building One. (September 21, 2017). Retrieved April 9, 2021 from<br>
+        https://hackernoon.com/learn-blockchains-by-building-one-117428612f46</p>
+<br><br><br><br><br><br>
+  						</div>
+
+
+					</div>		
+	               
+	            	</div>
+	          	</div>
+	        	
+	      </div>
+	    </div>
+	  </section>
+
+	</div>   	
+
+	<footer class="footer mb-20 dark-bg">	
+		<div class="left floatleft copyright">
+	          <p>&copy; 2021 Going Digital, CPS 4951</p>
+	    </div>     
+	</footer>
+    
+<script type='text/javascript' id='mim-theme-main-js-js-extra'>var mim = {"theme_uri":"http:\/\/wp.regaltheme.com\/mim\/wp-content\/themes\/mim","ajaxurl":"http:\/\/wp.regaltheme.com\/mim\/wp-admin\/admin-ajax.php","check_rtl":""};</script>
+<script defer src="js/automize.js"></script> 
+
+<script>
+	function openCity(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+} 
+
+</script>
+ <button class="tablinks" onclick="openCity(event, 'Java')" id="defaultOpen"></button>
+
+<script>
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script> 
+    
+</body>
+</html>
